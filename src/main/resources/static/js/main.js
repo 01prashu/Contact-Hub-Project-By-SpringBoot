@@ -1,11 +1,3 @@
-/**
-* Template Name: Gp
-* Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
-* Updated: Jun 29 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
 (function() {
   "use strict";
 
@@ -22,17 +14,37 @@
   document.addEventListener('scroll', toggleScrolled);
   window.addEventListener('load', toggleScrolled);
 
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get all nav links
+    var navLinks = document.querySelectorAll('#navmenu ul li a');
+
+    // Add click event to each nav link
+    navLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        // Remove 'active' class from all links
+        navLinks.forEach(function (link) {
+          link.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked link
+        this.classList.add('active');
+      });
+    });
+  });
+
+
   /**
    * Mobile nav toggle
    */
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-
-  function mobileNavToogle() {
-    document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
+  if (mobileNavToggleBtn) {
+    function mobileNavToggle() {
+      document.querySelector('body').classList.toggle('mobile-nav-active');
+      mobileNavToggleBtn.classList.toggle('bi-list');
+      mobileNavToggleBtn.classList.toggle('bi-x');
+    }
+    mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
   }
-  mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
   /**
    * Hide mobile nav on same-page/hash links
@@ -40,10 +52,9 @@
   document.querySelectorAll('#navmenu a').forEach(navmenu => {
     navmenu.addEventListener('click', () => {
       if (document.querySelector('.mobile-nav-active')) {
-        mobileNavToogle();
+        mobileNavToggle();
       }
     });
-
   });
 
   /**
@@ -78,13 +89,15 @@
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (scrollTop) {
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-  });
+  }
 
   window.addEventListener('load', toggleScrollTop);
   document.addEventListener('scroll', toggleScrollTop);
@@ -201,7 +214,7 @@
       } else {
         navmenulink.classList.remove('active');
       }
-    })
+    });
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
