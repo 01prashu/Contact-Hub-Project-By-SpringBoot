@@ -1,35 +1,36 @@
 package com.contact.test.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.BatchSize;
-import org.springframework.validation.annotation.Validated;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_Id")
     private int id;
-
+    @Column(name = "user_Name")
     private String name;
-    @Column(unique = true)
+
+    @Column(name = "user_Column", unique = true)
     private String email;
+
     private String password;
-    private String role;
-    private String imageurl;
+
+    private String image;
     @Column(length = 500)
     private String about;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Contact> contacts = new ArrayList<>();
+    private List<Contact> contacts;
 
-    public User(int id, String name, String email, String password, String role, String imageurl, String about, List<Contact> contacts) {
+    public User(int id, String name, String email, String password,  String imager, String about, List<Contact> contacts) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
-        this.imageurl = imageurl;
+        this.image = imager;
         this.about = about;
         this.contacts = contacts;
     }
@@ -70,20 +71,13 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+
+    public String getImage() {
+        return image;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getImageurl() {
-        return imageurl;
-    }
-
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setImage(String imager) {
+        this.image = imager;
     }
 
     public String getAbout() {
@@ -109,9 +103,8 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", imageurl='" + imageurl + '\'' +
+                ", password='" + password + '\'' + '\'' +
+                ", imager='" + image + '\'' +
                 ", about='" + about + '\'' +
                 ", contacts=" + contacts +
                 '}';

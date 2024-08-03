@@ -1,6 +1,7 @@
 package com.contact.test.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.engine.spi.ManagedEntity;
 
 import java.util.Date;
 
@@ -8,23 +9,26 @@ import java.util.Date;
 public class Contact {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "column_Id")
     private int c_id;
     private String firstname;
     private String lastname;
-    private int mb_no;
+    private String mb_no;
     private String email;
     private String address;
     private String work;
     private String relation;
+    @Temporal(TemporalType.DATE)
     private Date dob;
     private String description;
+    @JoinColumn(name = "user_Id")
     @ManyToOne
     private User user;
 
     public Contact() {
         super();
     }
-    public Contact(int c_id, String firstname, String lastname, int mb_no, String email, String address, String work, String relation, Date dob, String description , User user) {
+    public Contact(int c_id, String firstname, String lastname, String mb_no, String email, String address, String work, String relation, Date dob, String description , User user) {
         this.c_id = c_id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -70,11 +74,11 @@ public class Contact {
         this.lastname = lastname;
     }
 
-    public int getMb_no() {
+    public String getMb_no() {
         return mb_no;
     }
 
-    public void setMb_no(int mb_no) {
+    public void setMb_no(String mb_no) {
         this.mb_no = mb_no;
     }
 
